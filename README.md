@@ -1,52 +1,125 @@
-FileUploader
+
+# FileUploader
+
 FileUploader - это приложение для загрузки файлов с использованием ASP.NET Core и MongoDB. Оно поддерживает работу с Swagger для тестирования API.
 
-Основные возможности
-Загрузка файлов
-Получение списка загруженных файлов
-Поддержка Swagger для документации API
-Требования
-.NET 8.0 SDK
-Docker (для контейнеризации приложения)
-MongoDB (можно использовать локально или через Docker)
-Установка и запуск
-Локальная установка
-Клонируйте репозиторий:
+## Основные возможности
 
-bash
-Копировать код
-git clone https://github.com/DeStiNoVich21/FileUploader.git
-cd FileUploader
-Восстановите зависимости и постройте проект:
+- Загрузка файлов
+- Получение списка загруженных файлов
+- Поддержка Swagger для документации API
 
-bash
-Копировать код
-dotnet restore
-dotnet build
-Запустите проект:
+## Требования
 
-bash
-Копировать код
-dotnet run --project MongoDB_Empty_Pattern
-Приложение будет доступно по адресу: http://localhost:5000
+- .NET 8.0 SDK
+- Docker (для контейнеризации приложения)
+- MongoDB (можно использовать локально или через Docker)
 
-Использование Docker
-Убедитесь, что у вас установлен Docker.
+## Установка и запуск
 
-Постройте Docker-образ:
+### Локальная установка
 
-bash
-Копировать код
-docker build -t fileuploader:dev .
-Запустите контейнер:
+1. Клонируйте репозиторий:
 
-bash
-Копировать код
-docker run -d -p 8080:8080 --name fileuploader-container fileuploader:dev
-Приложение будет доступно по адресу: http://localhost:8080
+   ```bash
+   git clone https://github.com/DeStiNoVich21/FileUploader.git
+   cd FileUploader
+   ```
 
-Использование Swagger
+2. Восстановите зависимости и постройте проект:
+
+   ```bash
+   dotnet restore
+   dotnet build
+   ```
+
+3. Запустите проект:
+
+   ```bash
+   dotnet run --project MongoDB_Empty_Pattern
+   ```
+
+4. Приложение будет доступно по адресу: `http://localhost:5000`
+
+### Использование Docker
+
+1. Убедитесь, что у вас установлен Docker.
+
+2. Постройте Docker-образ:
+
+   ```bash
+   docker build -t fileuploader:dev .
+   ```
+
+3. Запустите контейнер:
+
+   ```bash
+   docker run -d -p 8080:8080 --name fileuploader-container fileuploader:dev
+   ```
+
+4. Приложение будет доступно по адресу: `http://localhost:8080`
+
+## Использование Swagger
+
 После запуска приложения вы можете получить доступ к Swagger UI для тестирования API:
 
-Локально: http://localhost:5000/swagger/index.html
-В Docker-контейнере: http://localhost:8080/swagger/index.html
+- Локально: `http://localhost:5000/swagger/index.html`
+- В Docker-контейнере: `http://localhost:8080/swagger/index.html`
+
+## Конфигурация
+
+### MongoDB
+
+По умолчанию приложение настроено на использование MongoDB. Вы можете изменить строку подключения в файле `appsettings.json`:
+
+```json
+{
+  "ConnectionStrings": {
+    "MongoDb": "mongodb://localhost:27017/fileuploader"
+  }
+}
+```
+
+### Профили запуска
+
+Профили запуска находятся в `launchSettings.json` и могут быть использованы для различных окружений. Например, вы можете добавить профиль для работы в Production:
+
+```json
+{
+  "profiles": {
+    "Production": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}
+```
+
+## Дополнительная информация
+
+### Логи и отладка
+
+Для просмотра логов контейнера используйте команду:
+
+```bash
+docker logs fileuploader-container
+```
+
+Для остановки и удаления контейнера используйте команды:
+
+```bash
+docker stop fileuploader-container
+docker rm fileuploader-container
+```
+
+## Вклад
+
+Если вы хотите внести свой вклад в проект, пожалуйста, откройте pull request или создайте issue.
+
+
+
